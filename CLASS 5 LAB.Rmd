@@ -1,0 +1,84 @@
+---
+title: "CLASS 5 LAB"
+author: "Divyanshu Kawankar"
+date: "12/6/2021"
+output: html_document
+---
+
+#Class 05 Data Visualization
+
+#Q All of the above
+#Q False
+
+#load ggplot
+
+#Q Network Graphs
+#Q ggplot2 is the only way to create plots in R
+```{r}
+library(ggplot2)
+
+ggplot(data = cars) + aes(x=speed, y=dist) + geom_point() + geom_smooth()
+```
+
+## 'geom_smooth() ' using method = "loess' and formula 'y - x'
+
+#specify a geom layer
+
+#Q Geom_point()
+
+```{r}
+p <- ggplot(date=cars) + 
+  aes(x=speed, y=dist) + 
+  geom_point() + 
+  labs(title="speed and stopping distance of cars", 
+       x="speed (MPH)", 
+       y="stopping distance (ft)", 
+       subtitle = "Divyanshu Kawankar PID:A16127402",
+       caption="dataset: 'cars'")
+  geom_smooth(method="lm", se=FALSE)
+```
+#How to use a data set to import data
+
+```{r}
+url <- "https://bioboot.github.io/bimm143_S20/class-material/up_down_expression.txt"
+genes <- read.delim(url)
+head(genes)
+
+```
+
+#Q number of genes
+
+```{r}
+nrow(genes)
+```
+
+```{r}
+#Q column names and functions
+colnames(genes)
+
+ncol(genes)
+
+#Q How many up regulated genes are there
+table(genes$State)
+
+#fraction of up regulated genes in the database
+prec <- table(genes$State) / nrow(genes)
+round(prec * 100, 2) #round(data, sig figs))
+
+#Q Plot
+ggplot(genes) + 
+  aes(x=Condition1, y=Condition2) +
+  geom_point()
+
+#Map point color
+p <- ggplot(genes) +
+  aes(x=Condition1, y=Condition2, col=State) + 
+  geom_point()
+
+p + scale_color_manual( values=c("blue","gray","red")) + 
+  labs(title = "Gene Expression Changes Upon Drug treatment",
+       x="control (no drug)",
+       y="drug treatment")
+
+```
+
